@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  node: &node
+    build: .
+    volumes:
+      - .:/home/app:cached
+  next:
+    <<: *node
+    ports:
+      - 3000:3000
+    command: npm run dev
+  runner:
+    <<: *node
+    command: /bin/sh
+  db:
+    image: postgres:12.3-alpine
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: pass
+
+volumes:
+  pgdata:
