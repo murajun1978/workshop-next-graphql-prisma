@@ -1,12 +1,5 @@
 import { ApolloServer, gql } from 'apollo-server-micro';
 
-// Todo schema
-
-// todos
-// id, title, done
-// createTodo
-// updateTodo
-
 const typeDefs = gql`
   type Query {
     todos: [Todo!]!
