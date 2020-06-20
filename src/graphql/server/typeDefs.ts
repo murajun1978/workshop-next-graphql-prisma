@@ -10,8 +10,13 @@ export const typeDefs = gql`
     title: String!
   }
 
+  input UpdateTodoInput {
+    done: Boolean!
+  }
+
   type Mutation {
     createTodo(input: CreateTodoInput!): Todo!
+    updateTodo(id: ID!, input: UpdateTodoInput!): Todo!
   }
 
   type Todo {

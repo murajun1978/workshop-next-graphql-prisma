@@ -4,6 +4,7 @@ import { typeDefs } from '../../graphql/server/typeDefs';
 import {
   Resolvers,
   MutationCreateTodoArgs,
+  MutationUpdateTodoArgs,
 } from '../../graphql/server/generated/graphql';
 
 const resolvers: Resolvers = {
@@ -15,6 +16,12 @@ const resolvers: Resolvers = {
   Mutation: {
     createTodo: async (root, args: MutationCreateTodoArgs, { prisma }) => {
       return await prisma.todo.create({
+        data: { ...args.input },
+      });
+    },
+    updateTodo: async (root, args: MutationUpdateTodoArgs, { prisma }) => {
+      return await prisma.todo.update({
+        where: { id: parseInt(args.id) },
         data: { ...args.input },
       });
     },

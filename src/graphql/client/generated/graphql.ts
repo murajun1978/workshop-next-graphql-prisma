@@ -19,11 +19,18 @@ export type CreateTodoInput = {
 export type Mutation = {
   __typename?: 'Mutation';
   createTodo: Todo;
+  updateTodo: Todo;
 };
 
 
 export type MutationCreateTodoArgs = {
   input: CreateTodoInput;
+};
+
+
+export type MutationUpdateTodoArgs = {
+  id: Scalars['ID'];
+  input: UpdateTodoInput;
 };
 
 export type Query = {
@@ -36,6 +43,10 @@ export type Todo = {
   __typename?: 'Todo';
   id: Scalars['ID'];
   title: Scalars['String'];
+  done: Scalars['Boolean'];
+};
+
+export type UpdateTodoInput = {
   done: Scalars['Boolean'];
 };
 
