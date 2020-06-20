@@ -3,11 +3,13 @@ import { Fragment, useState } from 'react';
 import {
   useTodosQuery,
   useCreateTodoMutation,
+  useUpdateTodoMutation,
 } from '../graphql/client/generated/graphql';
 
 const Index: NextPage = () => {
   const todoQuery = useTodosQuery();
   const [createTodoMutation] = useCreateTodoMutation();
+  const [updateTodoMutation] = useUpdateTodoMutation();
   const [textValue, setTextValue] = useState('');
 
   if (todoQuery.loading) {
@@ -43,7 +45,16 @@ const Index: NextPage = () => {
             <input
               type="checkbox"
               checked={todo.done}
-              onChange={() => {}}
+              onChange={() => {
+                updateTodoMutation({
+                  variables: {
+                    id: todo.id,
+                    input: {
+                      done: !todo.done,
+                    },
+                  },
+                });
+              }}
             ></input>
           </Fragment>
         ))}
