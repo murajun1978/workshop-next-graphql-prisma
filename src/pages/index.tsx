@@ -28,8 +28,8 @@ const Index: NextPage = () => {
         value={textValue}
       ></input>
       <button
-        onClick={() => {
-          createTodoMutation({
+        onClick={async () => {
+          await createTodoMutation({
             variables: { input: { title: textValue } },
           });
           setTextValue('');
