@@ -1,17 +1,5 @@
 import { ApolloServer, gql } from 'apollo-server-micro';
-
-const typeDefs = gql`
-  type Query {
-    todos: [Todo!]!
-    hello: String!
-  }
-
-  type Todo {
-    id: ID!
-    title: String!
-    done: Boolean!
-  }
-`;
+import { typeDefs } from '../../graphql/server/typeDefs';
 
 const resolvers = {
   Query: {

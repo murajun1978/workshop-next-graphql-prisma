@@ -1,13 +1,13 @@
 overwrite: true
-schema: "http://localhost:3000/api/graphql"
-documents: "src/**/*.graphql"
+schema:
+  "./src/graphql/server/typeDefs.ts":
+    noRequire: true
+# documents: "src/**/*.graphql"
 generates:
-  src/generated/graphql.tsx:
+  src/graphql/server/generated/graphql.ts:
     plugins:
       - "typescript"
-      - "typescript-operations"
       - "typescript-resolvers"
-      - "typescript-react-apollo"
   ./graphql.schema.json:
     plugins:
       - "introspection"
