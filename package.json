@@ -17,6 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@apollo/client": "^3.0.0-rc.6",
     "@prisma/cli": "^2.0.1",
     "@prisma/client": "^2.0.1",
     "apollo-server-micro": "^2.15.0",
