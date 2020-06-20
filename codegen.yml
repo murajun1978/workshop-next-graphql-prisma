@@ -2,12 +2,24 @@ overwrite: true
 schema:
   "./src/graphql/server/typeDefs.ts":
     noRequire: true
-# documents: "src/**/*.graphql"
+documents:
+  "./src/graphql/client/todo.ts":
+    noRequire: true
 generates:
   src/graphql/server/generated/graphql.ts:
     plugins:
       - "typescript"
       - "typescript-resolvers"
-  ./graphql.schema.json:
+  src/graphql/client/generated/graphql.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+    config:
+      withComponent: false
+      withHOC: false
+      withHooks: true
+      reactApolloVersion: 3
+  src/graphql/graphql.schema.json:
     plugins:
       - "introspection"
