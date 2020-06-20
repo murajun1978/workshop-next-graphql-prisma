@@ -1,16 +1,17 @@
 import { ApolloServer, gql } from 'apollo-server-micro';
 import { typeDefs } from '../../graphql/server/typeDefs';
+import { Resolvers } from '../../graphql/server/generated/graphql';
 
-const resolvers = {
+const resolvers: Resolvers = {
   Query: {
     todos: () => [
       {
-        id: 1,
+        id: '1',
         title: 'todo1',
         done: false,
       },
       {
-        id: 2,
+        id: '2',
         title: 'todo2',
         done: true,
       },
