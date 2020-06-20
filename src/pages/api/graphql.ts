@@ -1,12 +1,22 @@
 import { ApolloServer, gql } from 'apollo-server-micro';
 import { PrismaClient } from '@prisma/client';
 import { typeDefs } from '../../graphql/server/typeDefs';
-import { Resolvers } from '../../graphql/server/generated/graphql';
+import {
+  Resolvers,
+  MutationCreateTodoArgs,
+} from '../../graphql/server/generated/graphql';
 
 const resolvers: Resolvers = {
   Query: {
     todos: async (root, args, { prisma }) => {
       return await prisma.todo.findMany();
+    },
+  },
+  Mutation: {
+    createTodo: async (root, args: MutationCreateTodoArgs, { prisma }) => {
+      return await prisma.todo.create({
+        data: { ...args.input },
+      });
     },
   },
 };

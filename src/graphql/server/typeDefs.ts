@@ -6,6 +6,14 @@ export const typeDefs = gql`
     hello: String!
   }
 
+  input CreateTodoInput {
+    title: String!
+  }
+
+  type Mutation {
+    createTodo(input: CreateTodoInput!): Todo!
+  }
+
   type Todo {
     id: ID!
     title: String!

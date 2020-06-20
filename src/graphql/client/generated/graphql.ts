@@ -12,6 +12,20 @@ export type Scalars = {
   Float: number;
 };
 
+export type CreateTodoInput = {
+  title: Scalars['String'];
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  createTodo: Todo;
+};
+
+
+export type MutationCreateTodoArgs = {
+  input: CreateTodoInput;
+};
+
 export type Query = {
   __typename?: 'Query';
   todos: Array<Todo>;
