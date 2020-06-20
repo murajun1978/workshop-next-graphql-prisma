@@ -1,31 +1,54 @@
 import { NextPage } from 'next';
-import { Fragment } from 'react';
-import { useTodosQuery } from '../graphql/client/generated/graphql';
+import { Fragment, useState } from 'react';
+import {
+  useTodosQuery,
+  useCreateTodoMutation,
+} from '../graphql/client/generated/graphql';
 
 const Index: NextPage = () => {
-  const { data, loading, error } = useTodosQuery();
+  const todoQuery = useTodosQuery();
+  const [createTodoMutation] = useCreateTodoMutation();
+  const [textValue, setTextValue] = useState('');
 
-  if (loading) {
+  if (todoQuery.loading) {
     return <div>Loading...</div>;
   }
 
-  if (error) {
+  if (todoQuery.error) {
     return <div>Error!</div>;
   }
 
   return (
-    <ul>
-      {data.todos.map((todo) => (
-        <Fragment key={todo.id}>
-          <li>{todo.title}</li>
-          <input
-            type="checkbox"
-            checked={todo.done}
-            onChange={() => {}}
-          ></input>
-        </Fragment>
-      ))}
-    </ul>
+    <>
+      <input
+        type="text"
+        onChange={(e) => setTextValue(e.target.value)}
+        value={textValue}
+      ></input>
+      <button
+        onClick={() => {
+          createTodoMutation({
+            variables: { input: { title: textValue } },
+          });
+          setTextValue('');
+          todoQuery.refetch();
+        }}
+      >
+        Add
+      </button>
+      <ul>
+        {todoQuery.data.todos.map((todo) => (
+          <Fragment key={todo.id}>
+            <li>{todo.title}</li>
+            <input
+              type="checkbox"
+              checked={todo.done}
+              onChange={() => {}}
+            ></input>
+          </Fragment>
+        ))}
+      </ul>
+    </>
   );
 };
 

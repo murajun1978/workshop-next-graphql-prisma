@@ -8,4 +8,16 @@ export const todos = gql`
       done
     }
   }
+
+  input CreateTodoInput {
+    title: String!
+  }
+
+  mutation createTodo($input: CreateTodoInput!) {
+    createTodo(input: $input) {
+      id
+      title
+      done
+    }
+  }
 `;
