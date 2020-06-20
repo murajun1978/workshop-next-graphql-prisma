@@ -1,21 +1,13 @@
 import { ApolloServer, gql } from 'apollo-server-micro';
+import { PrismaClient } from '@prisma/client';
 import { typeDefs } from '../../graphql/server/typeDefs';
 import { Resolvers } from '../../graphql/server/generated/graphql';
 
 const resolvers: Resolvers = {
   Query: {
-    todos: () => [
-      {
-        id: '1',
-        title: 'todo1',
-        done: false,
-      },
-      {
-        id: '2',
-        title: 'todo2',
-        done: true,
-      },
-    ],
+    todos: async (root, args, { prisma }) => {
+      return await prisma.todo.findMany();
+    },
   },
 };
 
@@ -30,6 +22,11 @@ const server = new ApolloServer({
   resolvers,
   mocks: true,
   mockEntireSchema: false,
+  context: () => {
+    return {
+      prisma: new PrismaClient(),
+    };
+  },
 });
 
 export default server.createHandler({
