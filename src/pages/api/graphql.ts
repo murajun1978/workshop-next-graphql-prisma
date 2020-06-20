@@ -9,18 +9,18 @@ import {
 
 const resolvers: Resolvers = {
   Query: {
-    todos: async (root, args, { prisma }) => {
-      return await prisma.todo.findMany();
+    todos: (root, args, { prisma }) => {
+      return prisma.todo.findMany();
     },
   },
   Mutation: {
-    createTodo: async (root, args: MutationCreateTodoArgs, { prisma }) => {
-      return await prisma.todo.create({
+    createTodo: (root, args: MutationCreateTodoArgs, { prisma }) => {
+      return prisma.todo.create({
         data: { ...args.input },
       });
     },
-    updateTodo: async (root, args: MutationUpdateTodoArgs, { prisma }) => {
-      return await prisma.todo.update({
+    updateTodo: (root, args: MutationUpdateTodoArgs, { prisma }) => {
+      return prisma.todo.update({
         where: { id: parseInt(args.id) },
         data: { ...args.input },
       });
